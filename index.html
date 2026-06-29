@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahul's Terminal</title>
     <style>
+        /* Base page styling */
         body {
             background-color: #121212;
-            color: #00ff00;
+            color: #00ff00; /* Default Hacker Green */
             font-family: 'Courier New', Courier, monospace;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            transition: background 0.3s, color 0.3s;
         }
         .terminal {
             background-color: #1a1a1a;
@@ -23,11 +26,45 @@
             box-shadow: 0px 0px 15px rgba(0, 255, 0, 0.2);
             max-width: 500px;
             width: 100%;
+            transition: all 0.3s;
         }
         h1 { color: #ffffff; font-size: 24px; margin-top: 0; }
         .accent { color: #00bcff; }
         a { color: #ff007f; text-decoration: none; }
         a:hover { text-decoration: underline; }
+
+        /* Theme Toggle Button Style */
+        .theme-btn {
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 8px 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            background-color: #333;
+        }
+
+        /* ─── CYBERPUNK NEON THEME MODS ─── */
+        body.cyberpunk {
+            background-color: #0c0014;
+            color: #39ff14; /* Neon Green text */
+        }
+        body.cyberpunk .terminal {
+            border: 2px solid #ff007f; /* Neon Pink Border */
+            box-shadow: 0px 0px 20px rgba(255, 0, 127, 0.5);
+        }
+        body.cyberpunk .accent {
+            color: #00ffff; /* Neon Cyan details */
+        }
+        body.cyberpunk .theme-btn {
+            border-color: #00ffff;
+            color: #00ffff;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +77,29 @@
         <hr style="border-color: #333;">
         <p>Connect with me on <a href="https://discord.com" target="_blank">Discord</a></p>
     </div>
+
+    <!-- The interactive toggle button -->
+    <button class="theme-btn" id="toggleButton">Switch to Cyberpunk</button>
+
+    <!-- JavaScript logic to change themes dynamically -->
+    <script>
+        // 1. Grab the button and the main document body
+        const button = document.getElementById('toggleButton');
+        const body = document.body;
+
+        // 2. Listen for a click event on the button
+        button.addEventListener('click', () => {
+            // Toggle the 'cyberpunk' class on or off the body tag
+            body.classList.toggle('cyberpunk');
+            
+            // 3. Update the text on the button so the user knows what happens next
+            if (body.classList.contains('cyberpunk')) {
+                button.textContent = "Switch to Classic Hacker";
+            } else {
+                button.textContent = "Switch to Cyberpunk";
+            }
+        });
+    </script>
 
 </body>
 </html>
