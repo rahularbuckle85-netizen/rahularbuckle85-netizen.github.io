@@ -3,102 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahul's Terminal</title>
+    <title>Rahul's Command Center</title>
     <style>
-        /* Base page styling */
+        :root {
+            --glow-color: #00ff00;
+            --bg-color: #050505;
+            --terminal-bg: rgba(15, 15, 15, 0.95);
+            --accent-color: #00bcff;
+            --discord-color: #5865F2;
+        }
+
         body {
-            background-color: #121212;
-            color: #00ff00; /* Default Hacker Green */
+            background-color: var(--bg-color);
+            color: var(--glow-color);
             font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            transition: background 0.3s, color 0.3s;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden;
         }
-        .terminal {
-            background-color: #1a1a1a;
-            border: 2px solid #333;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 255, 0, 0.2);
-            max-width: 500px;
-            width: 100%;
-            transition: all 0.3s;
-        }
-        h1 { color: #ffffff; font-size: 24px; margin-top: 0; }
-        .accent { color: #00bcff; }
-        a { color: #ff007f; text-decoration: none; }
-        a:hover { text-decoration: underline; }
 
-        /* Theme Toggle Button Style */
-        .theme-btn {
-            background-color: #222;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 8px 16px;
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-family: monospace;
-            transition: all 0.2s;
+        /* Top Bar Clock System */
+        .system-header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            font-size: 14px;
+            opacity: 0.8;
         }
-        .theme-btn:hover {
+
+        /* Main Dashboard Terminal */
+        .terminal-container {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--glow-color);
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Window controls mock decoration */
+        .window-dots {
+            display: flex;
+            gap: 6px;
+            position: absolute;
+            top: 12px;
+            left: 15px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
             background-color: #333;
         }
+        .dot.red { background-color: #ff5f56; }
 
-        /* ─── CYBERPUNK NEON THEME MODS ─── */
-        body.cyberpunk {
-            background-color: #0c0014;
-            color: #39ff14; /* Neon Green text */
+        h1 {
+            font-size: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed rgba(0, 255, 0, 0.3);
+            padding-bottom: 10px;
+            word-break: break-all;
         }
-        body.cyberpunk .terminal {
-            border: 2px solid #ff007f; /* Neon Pink Border */
-            box-shadow: 0px 0px 20px rgba(255, 0, 127, 0.5);
+
+        .line {
+            margin: 12px 0;
+            line-height: 1.5;
         }
-        body.cyberpunk .accent {
-            color: #00ffff; /* Neon Cyan details */
+
+        .label {
+            color: var(--accent-color);
+            font-weight: bold;
         }
-        body.cyberpunk .theme-btn {
-            border-color: #00ffff;
-            color: #00ffff;
+
+        /* Dynamic Terminal Typer Animation */
+        .typing-text {
+            border-right: 2px solid var(--glow-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        /* Bot Status Sub-Card */
+        .status-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #ff007f;
+            padding: 12px;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        /* Upgraded Discord Link Button */
+        .discord-gate {
+            display: block;
+            text-align: center;
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid var(--discord-color);
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            padding: 14px;
+            margin-top: 25px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.2);
+        }
+
+        .discord-gate:hover {
+            background-color: var(--discord-color);
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.7);
+            transform: scale(1.02);
+            text-shadow: 0 0 5px #fff;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--glow-color); }
+        }
+
+        @media (max-width: 600px) {
+            .system-header { position: relative; top: 0; margin-bottom: 25px; }
+            body { justify-content: flex-start; padding-top: 40px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="terminal">
-        <h1>rahul@thinkpad-t510:~</h1>
-        <p><span class="accent">> status:</span> Learning to code on Linux Mint.</p>
-        <p><span class="accent">> projects:</span> Built a custom AI Discord Bot.</p>
-        <p><span class="accent">> machine:</span> Lenovo ThinkPad T510 (Core i5 / Linux).</p>
-        <hr style="border-color: #333;">
-        <p>Connect with me on <a href="https://discord.com" target="_blank">Discord</a></p>
+    <div class="system-header">
+        <span>SYS: ONLINE</span>
+        <span id="liveClock">00:00:00 AM</span>
     </div>
 
-    <!-- The interactive toggle button -->
-    <button class="theme-btn" id="toggleButton">Switch to Cyberpunk</button>
+    <div class="terminal-container">
+        <div class="window-dots">
+            <div class="dot red"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
 
-    <!-- JavaScript logic to change themes dynamically -->
+        <h1>rahul@thinkpad-t510:~/netizen_hub</h1>
+        
+        <div class="line">
+            <span class="label">> host_machine:</span> Lenovo ThinkPad T510 (Linux Mint OS)
+        </div>
+        
+        <div class="line">
+            <span class="label">> current_task:</span> <span id="typewriter"></span>
+        </div>
+
+        <!-- Fart AI Showcase Module -->
+        <div class="status-box">
+            <span style="color: #ff007f; font-weight: bold;">[!] LIVE DEPLOYMENT DETECTED:</span><br>
+            <span class="label">Identity:</span> Fart AI#9177<br>
+            <span class="label">Engine:</span> Gemini 2.5 LLM Kernel<br>
+            <span class="label">Status:</span> Connected to Gateway (Listening)
+        </div>
+
+        <!-- The Ultimate Discord Invite Button -->
+        <a href="https://discord.gg/xhdjVuCED9" target="_blank" class="discord-gate">
+            INITIALIZE DISCORD LINK
+        </a>
+    </div>
+
     <script>
-        // 1. Grab the button and the main document body
-        const button = document.getElementById('toggleButton');
-        const body = document.body;
+        // Real-time Clock Logic
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // convert 0 to 12
+            document.getElementById('liveClock').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
-        // 2. Listen for a click event on the button
-        button.addEventListener('click', () => {
-            // Toggle the 'cyberpunk' class on or off the body tag
-            body.classList.toggle('cyberpunk');
-            
-            // 3. Update the text on the button so the user knows what happens next
-            if (body.classList.contains('cyberpunk')) {
-                button.textContent = "Switch to Classic Hacker";
-            } else {
-                button.textContent = "Switch to Cyberpunk";
+        // Autotyping Terminal Effect Logic
+        const textToType = "Expanding server neural networks and writing python tools...";
+        let index = 0;
+        function typeEffect() {
+            if (index < textToType.length) {
+                document.getElementById('typewriter').textContent += textToType.charAt(index);
+                index++;
+                setTimeout(typeEffect, 50);
             }
-        });
+        }
+        window.onload = typeEffect;
     </script>
 
 </body>
