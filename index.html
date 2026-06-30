@@ -10,7 +10,6 @@
             --bg-color: #050505;
             --terminal-bg: rgba(15, 15, 15, 0.95);
             --accent-color: #00bcff;
-            --discord-color: #5865F2;
         }
 
         body {
@@ -103,33 +102,8 @@
             background: rgba(0, 0, 0, 0.5);
             border-left: 3px solid #ff007f;
             padding: 12px;
-            margin: 20px 0;
-            font-size: 13px;
-        }
-
-        /* Upgraded Discord Link Button */
-        .discord-gate {
-            display: block;
-            text-align: center;
-            background-color: transparent;
-            color: #fff;
-            border: 2px solid var(--discord-color);
-            font-weight: bold;
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            padding: 14px;
             margin-top: 25px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(88, 101, 242, 0.2);
-        }
-
-        .discord-gate:hover {
-            background-color: var(--discord-color);
-            box-shadow: 0 0 25px rgba(88, 101, 242, 0.7);
-            transform: scale(1.02);
-            text-shadow: 0 0 5px #fff;
+            font-size: 13px;
         }
 
         @keyframes blink {
@@ -167,18 +141,12 @@
             <span class="label">> current_task:</span> <span id="typewriter"></span>
         </div>
 
-        <!-- Fart AI Showcase Module -->
         <div class="status-box">
             <span style="color: #ff007f; font-weight: bold;">[!] LIVE DEPLOYMENT DETECTED:</span><br>
             <span class="label">Identity:</span> Fart AI#9177<br>
             <span class="label">Engine:</span> Gemini 2.5 LLM Kernel<br>
             <span class="label">Status:</span> Connected to Gateway (Listening)
         </div>
-
-        <!-- The Ultimate Discord Invite Button -->
-        <a href="https://discord.gg/xhdjVuCED9" target="_blank" class="discord-gate">
-            INITIALIZE DISCORD LINK
-        </a>
     </div>
 
     <script>
@@ -190,7 +158,7 @@
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
-            hours = hours ? hours : 12; // convert 0 to 12
+            hours = hours ? hours : 12; 
             document.getElementById('liveClock').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
         }
         setInterval(updateClock, 1000);
